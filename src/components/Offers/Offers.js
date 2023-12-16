@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-export default function Offers() {
+export default function Offers(token) {
   const [offers, setOffers] = useState([]);
 
   const offerList = async () => {
-    const res = await getOffers();
+    const res = await getOffers(token);
     setOffers(res.offers);
   };
 
@@ -29,11 +29,12 @@ export default function Offers() {
   );
 }
 
-async function getOffers() {
+async function getOffers(token) {
   return fetch("http://localhost:3002/api/v1/offers", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token.token,
     },
   }).then((data) => data.json());
 }

@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/login" element={<Login setToken={setToken} />} />
           <Route path="/registration" element={<Registration />} />
           <Route element={<AuthLayout token={token} />}>
-            <Route path="/offers" element={<Offers />} />
+            <Route path="/offers" element={<Offers token={token} />} />
           </Route>
         </Routes>
       </Router>
