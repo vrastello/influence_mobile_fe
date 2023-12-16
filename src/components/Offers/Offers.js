@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Login from "../Login/Login";
-import useToken from "../App/useToken";
 
 export default function Offers() {
   const [offers, setOffers] = useState([]);
@@ -14,15 +12,10 @@ export default function Offers() {
     offerList();
   }, []);
 
-  const { token, setToken } = useToken();
-
-  if (!token) {
-    return <Login setToken={setToken} />;
-  }
-
   return (
     <div>
       <h2>Offers</h2>
+      <text></text>
       <ul className="list-group list-group-numbered">
         {offers.map((data) => {
           return (
