@@ -5,6 +5,7 @@ import AuthLayout from "./AuthLayout";
 import Registration from "../Login/Registration";
 import Offers from "../Offers/Offers";
 import Login from "../Login/Login";
+import Admin from "../Admin/Admin";
 import useToken from "./UseToken";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/registration" element={<Registration />} />
           <Route element={<AuthLayout token={token} />}>
             <Route path="/offers" element={<Offers token={token} />} />
+            <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
       </Router>

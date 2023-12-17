@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import "./Login.css";
@@ -21,11 +21,11 @@ export default function Login({ setToken }) {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await loginUser({
+    const res = await loginUser({
       username,
       password,
     });
-    setToken(token);
+    setToken(res);
     navigate("/offers");
   };
 
