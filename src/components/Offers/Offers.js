@@ -25,6 +25,27 @@ function AdminPortal({ role }) {
   }
 }
 
+function Logout() {
+  let navigate = useNavigate();
+
+  function handleLogout() {
+    console.log("handleLogout");
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        handleLogout();
+      }}
+    >
+      Logout
+    </button>
+  );
+}
+
 export default function Offers({ token }) {
   const [offers, setOffers] = useState([]);
   const tokenString = token.token;
@@ -47,15 +68,29 @@ export default function Offers({ token }) {
       <div>
         <AdminPortal role={roleString} />
       </div>
-      <ul className="list-group list-group-numbered">
+      <div>
+        <Logout />
+      </div>
+      <div>
         {offers.map((data) => {
           return (
-            <li className="list-group-item" key={data.id}>
-              {data.description}
-            </li>
+            <div class="card" key={data.id}>
+              <div class="card-body">
+                <h5 class="card-title">{data.title}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{data.genre}</h6>
+                <p class="card-text">
+                  Description: {data.description}
+                  <br />
+                  Payout: {data.payout}
+                </p>
+                <a href="#" class="card-link">
+                  Log Play
+                </a>
+              </div>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
