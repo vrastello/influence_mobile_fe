@@ -75,16 +75,16 @@ export default function Offers({ token }) {
       <div>
         {offers.map((data) => {
           return (
-            <div class="card" key={data.id}>
-              <div class="card-body">
-                <h5 class="card-title">{data.title}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{data.genre}</h6>
-                <p class="card-text">
+            <div className="card" key={data.id}>
+              <div className="card-body">
+                <h5 className="card-title">{data.title}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{data.genre}</h6>
+                <p className="card-text">
                   Description: {data.description}
                   <br />
                   Payout: {data.payout}
                 </p>
-                <a href="#" class="card-link">
+                <a href="#" className="card-link">
                   Log Play
                 </a>
               </div>

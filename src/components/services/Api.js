@@ -3,7 +3,9 @@ const baseURL = "http://localhost:3002/api";
 function getUrl(id, role) {
   console.log(`param: ${id}`);
   console.log(`typeof param: ${typeof Number(id)}`);
-  if (!role) {
+  if (!role && !id) {
+    return `${baseURL}/v1/offers/`;
+  } else if (!role) {
     return `${baseURL}/v1/offers/${id}/`;
   } else {
     return `${baseURL}/v1/offers/?role=${role}`;

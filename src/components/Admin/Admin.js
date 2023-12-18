@@ -4,11 +4,7 @@ import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, IconButton } from "@mui/material";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import OfferView from "./OfferView";
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-} from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 
 function Admin({ token }) {
   const [offers, setOffers] = useState([]);
