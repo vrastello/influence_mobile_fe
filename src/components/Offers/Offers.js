@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import getOffers from "../Services/Api";
 
 function AdminPortal({ role }) {
   console.log(`role in user: ${role}`);
@@ -93,15 +94,4 @@ export default function Offers({ token }) {
       </div>
     </div>
   );
-}
-
-async function getOffers(tokenString) {
-  console.log(`token: ${tokenString}`);
-  return fetch("http://localhost:3002/api/v1/offers", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: tokenString,
-    },
-  }).then((data) => data.json());
 }
