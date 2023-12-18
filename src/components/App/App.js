@@ -7,6 +7,7 @@ import Offers from "../Offers/Offers";
 import Login from "../Login/Login";
 import Admin from "../Admin/Admin";
 import useToken from "./UseToken";
+import OfferView from "../Admin/OfferView";
 
 export default function App() {
   const { token, setToken } = useToken();
@@ -21,6 +22,10 @@ export default function App() {
           <Route element={<AuthLayout token={token} />}>
             <Route path="/offers" element={<Offers token={token} />} />
             <Route path="/admin" element={<Admin token={token} />} />
+            <Route
+              path="/admin/offer-view/:id"
+              element={<OfferView token={token} />}
+            />
           </Route>
         </Routes>
       </Router>

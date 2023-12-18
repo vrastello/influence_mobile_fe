@@ -1,8 +1,23 @@
 const baseURL = "http://localhost:3002/api";
 
-export default async function getOffers(tokenString, roleString = null) {
+function getUrl(id, role) {
+  console.log(`param: ${id}`);
+  console.log(`typeof param: ${typeof Number(id)}`);
+  if (!role) {
+    return `${baseURL}/v1/offers/${id}/`;
+  } else {
+    return `${baseURL}/v1/offers/?role=${role}`;
+  }
+}
+
+export default async function getOffers(
+  tokenString,
+  roleString = null,
+  id = null
+) {
   console.log(`token: ${tokenString}`);
-  return fetch(`${baseURL}/v1/offers/?role=${roleString}`, {
+  let url = getUrl(id, roleString);
+  return fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
