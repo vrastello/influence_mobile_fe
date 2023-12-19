@@ -8,11 +8,9 @@ import updateOffer from "../Services/updateOffer";
 import SuccessMessage from "../App/SuccessMessage";
 
 function AdminPortal({ role }) {
-  console.log(`role in user: ${role}`);
   let navigate = useNavigate();
 
   function handleAdmin() {
-    console.log("handleAdmin");
     navigate("/admin");
   }
   if (role === "admin") {
@@ -35,7 +33,6 @@ function Logout() {
   let navigate = useNavigate();
 
   function handleLogout() {
-    console.log("handleLogout");
     sessionStorage.removeItem("token");
     navigate("/login");
   }
@@ -63,9 +60,6 @@ export default function Offers({
   const [user, setUser] = useState();
   const tokenString = token.token;
   const roleString = token.role;
-  console.log(`role in offers: ${roleString}`);
-  console.log(`token in offers: ${tokenString}`);
-  const navigate = useNavigate();
   const [offerToEdit, setOfferToEdit] = useState(0);
 
   useEffect(() => {
@@ -78,13 +72,11 @@ export default function Offers({
       try {
         const res = await getOffers(tokenString);
         if (!res.ok) {
-          console.log(res.status, res.statusText);
           throw new Error(`Status ${res.status}, ${res.statusText}`);
         } else {
           const data = await res.json();
           setOffers(data.offers);
           setUser(data.user);
-          console.log(`data: ${data.user.age}`);
         }
       } catch (error) {
         setError(error.message);
@@ -101,21 +93,16 @@ export default function Offers({
     }
   }
 
-  async function submitEdit(play_hours, offer_detail_id) {
+  async function submitEdit(play_hours, offer_id) {
     try {
-      const res = await updateOffer(tokenString, play_hours, offer_detail_id);
-      console.log(res);
+      const res = await updateOffer(tokenString, play_hours, offer_id);
       if (!res.ok) {
-        console.log(res.status, res.statusText);
         throw new Error(`Status ${res.status}, ${res.statusText}`);
       } else {
-        const data = await res.json();
         setSuccess("Successfully logged play hours");
-        console.log(`data: ${data}`);
         toggleEditForm();
       }
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
   }
@@ -150,10 +137,7 @@ export default function Offers({
           return (
             <div className="card" key={offer.id}>
               <Offer
-                error={error}
-                setError={setError}
-                success={success}
-                setSuccess={setSuccess}
+                user={user}
                 offer={offer}
                 offerToEdit={offerToEdit}
                 submitEdit={submitEdit}

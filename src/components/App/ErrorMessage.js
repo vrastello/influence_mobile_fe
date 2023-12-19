@@ -1,7 +1,6 @@
 import "./App.css";
 
 export default function ErrorMessage({ hasError }) {
-  console.log(hasError);
   if (!hasError) {
     return null;
   }

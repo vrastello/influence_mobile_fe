@@ -1,11 +1,6 @@
 import { baseURL } from "./Api";
 
-export default async function updateOffer(
-  tokenString,
-  play_hours,
-  offer_detail_id
-) {
-  console.log(`token: ${tokenString}`);
+export default async function updateOffer(tokenString, play_hours, offer_id) {
   return fetch(`${baseURL}/v1/log_play_hours`, {
     method: "PATCH",
     headers: {
@@ -13,9 +8,9 @@ export default async function updateOffer(
       Authorization: tokenString,
     },
     body: JSON.stringify({
-      offer_detail: {
+      offer: {
         play_hours: play_hours,
-        offer_detail_id: offer_detail_id,
+        offer_id: offer_id,
       },
     }),
   });

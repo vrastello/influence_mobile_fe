@@ -27,7 +27,6 @@ export default function App() {
                 error={error}
                 setError={setError}
                 success={success}
-                setSuccess={setSuccess}
               />
             }
           />
@@ -38,7 +37,6 @@ export default function App() {
                 setToken={setToken}
                 error={error}
                 setError={setError}
-                success={success}
                 setSuccess={setSuccess}
               />
             }

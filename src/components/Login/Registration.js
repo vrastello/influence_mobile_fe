@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import createUser from "../Services/createUser";
 import ErrorMessage from "../App/ErrorMessage";
 
+// parse rails validation errors
 function parseError(error) {
   const errorList = Object.entries(error).map(([key, value]) => {
     const errorMessage = value.join(", ");
@@ -12,7 +13,7 @@ function parseError(error) {
   return errorList;
 }
 
-export default function Registration({ error, setError, success, setSuccess }) {
+export default function Registration({ error, setError, setSuccess }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -36,20 +37,15 @@ export default function Registration({ error, setError, success, setSuccess }) {
           gender,
         },
       });
-      console.log(res);
       if (!res.ok) {
         const data = await res.json();
-        console.log(parseError(data.error));
         setError(parseError(data.error));
-        console.log(res.status, res.statusText);
         throw new Error(`${res.status}`);
       } else {
         setSuccess("Successfully registered, please log in");
         navigate("/login");
       }
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

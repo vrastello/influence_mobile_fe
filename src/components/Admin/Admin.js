@@ -13,18 +13,19 @@ function Admin({ token, error, setError }) {
   const tokenString = token.token;
   let navigate = useNavigate();
 
-  // we have to call api again to get total list of offers for admin
+  // We could have just pulled all data from api at home route then we wouldn't
+  // need to make another api call here, but we want to authenticate this request
+  // user can change session storage
+  // so checking token presence is not enough, we need to validate on BE
   useEffect(() => {
     const offerList = async () => {
       try {
         const res = await getAdminOffers(tokenString);
         if (!res.ok) {
-          console.log(res.status, res.statusText);
           throw new Error(`Status ${res.status}, ${res.statusText}`);
         } else {
           const data = await res.json();
           setOffers(data.offers);
-          console.log(`data: ${data}`);
         }
       } catch (error) {
         setError(error.message);
@@ -65,7 +66,6 @@ function Admin({ token, error, setError }) {
   );
 
   function handleOfferView(id) {
-    console.log(`handleOfferView: ${id}`);
     setRowID(rowId);
     navigate(`/admin/${id}`);
   }
@@ -84,7 +84,6 @@ function Admin({ token, error, setError }) {
           enableRowActions
           renderRowActions={({ row, table }) => (
             <Box sx={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
-              {console.log(row.original.id)}
               <IconButton
                 color="primary"
                 onClick={() => handleOfferView(row.original.id)}

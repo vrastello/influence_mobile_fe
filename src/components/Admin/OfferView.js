@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 /*
 another api call not needed for data, since we already have that in state
 but since we want to authenticate this request anyways, we 
-might as well request api with id to get the offer we want
+might as well request api with id to make use of react router params
+user could try to access this route by changing the url
 */
 
 function OfferView({ token, error, setError }) {
@@ -16,22 +17,20 @@ function OfferView({ token, error, setError }) {
   const [offer, setOffer] = useState([]);
   const tokenString = token.token;
   const rowParams = useParams();
-  console.log(`rowParams: ${rowParams.id}`);
   const navigate = useNavigate();
 
+  // have to make call to validate token, user can change session storage
+  // so token presence is not as secure as BE validation
   useEffect(() => {
     const offerList = async () => {
       try {
         const res = await showOffer(tokenString, rowParams.id);
         if (!res.ok) {
-          console.log(res.status, res.statusText);
           throw new Error(`Status ${res.status}, ${res.statusText}`);
         } else {
           const data = await res.json();
-          console.log(`data: ${data}`);
           setOfferDetails(data.offer_details);
           setOffer(data);
-          console.log(`data: ${data}`);
         }
       } catch (error) {
         setError(error.message);
@@ -65,7 +64,6 @@ function OfferView({ token, error, setError }) {
     []
   );
 
-  console.log(`offer: ${offer?.title}`);
   return (
     <div>
       <div>

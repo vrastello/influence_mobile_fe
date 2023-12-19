@@ -7,13 +7,7 @@ import loginUser from "../Services/loginUser";
 import "./Login.css";
 import SuccessMessage from "../App/SuccessMessage";
 
-export default function Login({
-  setToken,
-  error,
-  setError,
-  success,
-  setSuccess,
-}) {
+export default function Login({ setToken, error, setError, success }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -26,16 +20,13 @@ export default function Login({
         password,
       });
       if (!res.ok) {
-        console.log(res.status, res.statusText);
         throw new Error(`Status ${res.status}, ${res.statusText}`);
       } else {
         const data = await res.json();
-        console.log(`data: ${data}`);
         setToken(data);
         navigate("/");
       }
     } catch (error) {
-      console.log(error.message);
       if (error.message === "Status 401, Unauthorized") {
         setError("invalid username or password");
       } else if (error.message) {

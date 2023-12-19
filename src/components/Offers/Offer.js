@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+// dynamic offer card, allows user to log play inside offer UI component
 export default function Offer({
   offer,
   offerToEdit,
@@ -15,7 +16,7 @@ export default function Offer({
 
   function submitHandler(e) {
     e.preventDefault();
-    submitEdit(playHours, offer.offer_details[0].id);
+    submitEdit(playHours, offer.id);
     resetState();
   }
 
