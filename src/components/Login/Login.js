@@ -37,10 +37,6 @@ export default function Login({ setToken, error, setError }) {
     }
   };
 
-  useEffect(() => {
-    setError(false);
-  }, []);
-
   function handleRegistration() {
     navigate("/registration");
   }
