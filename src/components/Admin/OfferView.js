@@ -19,13 +19,6 @@ function OfferView({ token, error, setError }) {
   console.log(`rowParams: ${rowParams.id}`);
   const navigate = useNavigate();
 
-  const asyncGetOffer = async () => {
-    const res = await showOffer(tokenString, rowParams.id);
-    console.log(`res: ${JSON.stringify(res)}`);
-    setOfferDetails(res.offer_details);
-    setOffer(res);
-  };
-
   useEffect(() => {
     const offerList = async () => {
       try {
@@ -35,8 +28,9 @@ function OfferView({ token, error, setError }) {
           throw new Error(`Status ${res.status}, ${res.statusText}`);
         } else {
           const data = await res.json();
-          setOfferDetails(res.offer_details);
-          setOffer(res);
+          console.log(`data: ${data}`);
+          setOfferDetails(data.offer_details);
+          setOffer(data);
           console.log(`data: ${data}`);
         }
       } catch (error) {

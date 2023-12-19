@@ -47,7 +47,13 @@ export default function App() {
             <Route
               path="/"
               element={
-                <Offers token={token} error={error} setError={setError} />
+                <Offers
+                  token={token}
+                  error={error}
+                  setError={setError}
+                  success={success}
+                  setSuccess={setSuccess}
+                />
               }
             />
             <Route

@@ -97,20 +97,20 @@ export default function Registration({ error, setError, success, setSuccess }) {
             <input
               type="radio"
               id="male"
-              name="male"
+              name="gender"
               value="Male"
               onChange={(e) => setGender(e.target.value)}
             />
-            <label className="male">Male</label>
+            <label className="radio-inline">Male</label>
           </div>
           <input
             type="radio"
             id="female"
-            name="female"
+            name="gender"
             value="Female"
             onChange={(e) => setGender(e.target.value)}
           />
-          <label className="female">Female</label>
+          <label className="radio-inline">Female</label>
         </label>
         <div>
           <button type="submit">Submit</button>
