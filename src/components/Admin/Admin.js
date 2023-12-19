@@ -1,25 +1,36 @@
 import React from "react";
-import getOffers from "../Services/Api";
+import getAdminOffers from "../Services/getAdminOffers";
 import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, IconButton } from "@mui/material";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import { MaterialReactTable } from "material-react-table";
+import ErrorMessage from "../App/ErrorMessage";
 
-function Admin({ token }) {
+function Admin({ token, error, setError }) {
   const [offers, setOffers] = useState([]);
   const [rowId, setRowID] = useState("");
   const tokenString = token.token;
-  const roleString = token.role;
   let navigate = useNavigate();
 
   // we have to call api again to get total list of offers for admin
-  const offerList = async () => {
-    const res = await getOffers(tokenString, roleString, rowId);
-    setOffers(res.offers);
-  };
-
   useEffect(() => {
+    const offerList = async () => {
+      try {
+        const res = await getAdminOffers(tokenString);
+        if (!res.ok) {
+          console.log(res.status, res.statusText);
+          throw new Error(`Status ${res.status}, ${res.statusText}`);
+        } else {
+          const data = await res.json();
+          setOffers(data.offers);
+          console.log(`data: ${data}`);
+        }
+      } catch (error) {
+        setError(error.message);
+        navigate("/");
+      }
+    };
     offerList();
   }, []);
 
@@ -56,11 +67,14 @@ function Admin({ token }) {
   function handleOfferView(id) {
     console.log(`handleOfferView: ${id}`);
     setRowID(rowId);
-    navigate(`/admin/offer-view/${id}`);
+    navigate(`/admin/${id}`);
   }
 
   return (
     <div>
+      <div>
+        <ErrorMessage hasError={error} />
+      </div>
       <div>
         <MaterialReactTable
           columns={columns}

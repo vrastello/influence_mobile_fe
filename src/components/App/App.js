@@ -1,5 +1,5 @@
 // Routes.js
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import Registration from "../Login/Registration";
@@ -11,20 +11,41 @@ import OfferView from "../Admin/OfferView";
 
 export default function App() {
   const { token, setToken } = useToken();
+  const [error, setError] = useState(false);
 
   return (
     <div>
       <h1>Influence Mobile</h1>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/registration" element={<Registration />} />
+          <Route
+            path="/login"
+            element={
+              <Login setToken={setToken} error={error} setError={setError} />
+            }
+          />
+          <Route
+            path="/registration"
+            element={<Registration error={error} setError={setError} />}
+          />
           <Route element={<AuthLayout token={token} />}>
-            <Route path="/offers" element={<Offers token={token} />} />
-            <Route path="/admin" element={<Admin token={token} />} />
             <Route
-              path="/admin/offer-view/:id"
-              element={<OfferView token={token} />}
+              path="/"
+              element={
+                <Offers token={token} error={error} setError={setError} />
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <Admin token={token} error={error} setError={setError} />
+              }
+            />
+            <Route
+              path="/admin/:id"
+              element={
+                <OfferView token={token} error={error} setError={setError} />
+              }
             />
           </Route>
         </Routes>

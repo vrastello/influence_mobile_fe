@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import getOffers from "../Services/Api";
+import getOffers from "../Services/getOffers";
+import ErrorMessage from "../App/ErrorMessage";
 
 function AdminPortal({ role }) {
   console.log(`role in user: ${role}`);
@@ -47,19 +48,34 @@ function Logout() {
   );
 }
 
-export default function Offers({ token }) {
+export default function Offers({ token, error, setError }) {
   const [offers, setOffers] = useState([]);
   const tokenString = token.token;
   const roleString = token.role;
   console.log(`role in offers: ${roleString}`);
   console.log(`token in offers: ${tokenString}`);
-
-  const offerList = async () => {
-    const res = await getOffers(tokenString);
-    setOffers(res.offers);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setError(false);
+  }, []);
+
+  useEffect(() => {
+    const offerList = async () => {
+      try {
+        const res = await getOffers(tokenString);
+        if (!res.ok) {
+          console.log(res.status, res.statusText);
+          throw new Error(`Status ${res.status}, ${res.statusText}`);
+        } else {
+          const data = await res.json();
+          setOffers(data.offers);
+          console.log(`data: ${data}`);
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    };
     offerList();
   }, []);
 
@@ -71,6 +87,9 @@ export default function Offers({ token }) {
       </div>
       <div>
         <Logout />
+      </div>
+      <div>
+        <ErrorMessage hasError={error} />
       </div>
       <div>
         {offers.map((data) => {

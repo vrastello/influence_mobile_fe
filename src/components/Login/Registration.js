@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../Services/Api";
+import createUser from "../Services/createUser";
 
 export default function Registration() {
   const [username, setUserName] = useState();

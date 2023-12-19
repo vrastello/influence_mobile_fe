@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import getOffers from "../Services/Api";
+import { useParams, Outlet } from "react-router-dom";
+import showOffer from "../Services/showOffer";
 import { MaterialReactTable } from "material-react-table";
+import ErrorMessage from "../App/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
 /*
 another api call not needed for data, since we already have that in state
@@ -9,19 +11,39 @@ but since we want to authenticate this request anyways, we
 might as well request api with id to get the offer we want
 */
 
-function OfferView({ token }) {
+function OfferView({ token, error, setError }) {
+  const [offerDetails, setOfferDetails] = useState([]);
   const [offer, setOffer] = useState([]);
   const tokenString = token.token;
   const rowParams = useParams();
   console.log(`rowParams: ${rowParams.id}`);
+  const navigate = useNavigate();
 
-  const offerList = async () => {
-    const res = await getOffers(tokenString, null, rowParams.id);
+  const asyncGetOffer = async () => {
+    const res = await showOffer(tokenString, rowParams.id);
     console.log(`res: ${JSON.stringify(res)}`);
-    setOffer(res.offer_details);
+    setOfferDetails(res.offer_details);
+    setOffer(res);
   };
 
   useEffect(() => {
+    const offerList = async () => {
+      try {
+        const res = await showOffer(tokenString, rowParams.id);
+        if (!res.ok) {
+          console.log(res.status, res.statusText);
+          throw new Error(`Status ${res.status}, ${res.statusText}`);
+        } else {
+          const data = await res.json();
+          setOfferDetails(res.offer_details);
+          setOffer(res);
+          console.log(`data: ${data}`);
+        }
+      } catch (error) {
+        setError(error.message);
+        navigate("/");
+      }
+    };
     offerList();
   }, []);
 
@@ -52,16 +74,32 @@ function OfferView({ token }) {
   console.log(`offer: ${offer?.title}`);
   return (
     <div>
-      <h2>OfferView</h2>
-      <h2>{offer?.title}</h2>
+      <div>
+        <h2>{offer?.title}</h2>
+        <div>
+          <p>
+            <strong>Description:</strong> {offer?.description}
+          </p>
+          <p>
+            <strong>Gender:</strong> {offer?.gender}
+          </p>
+          <p>
+            <strong>Payout</strong> {offer?.payout}
+          </p>
+        </div>
+      </div>
+      <div>
+        <ErrorMessage hasError={error} />
+      </div>
       <div>
         <MaterialReactTable
           columns={columns}
-          data={offer}
+          data={offerDetails}
           enableColumnOrdering
           enablePagination
         />
       </div>
+      <Outlet />
     </div>
   );
 }
