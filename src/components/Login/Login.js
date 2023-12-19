@@ -5,8 +5,15 @@ import ErrorMessage from "../App/ErrorMessage";
 import loginUser from "../Services/loginUser";
 
 import "./Login.css";
+import SuccessMessage from "../App/SuccessMessage";
 
-export default function Login({ setToken, error, setError }) {
+export default function Login({
+  setToken,
+  error,
+  setError,
+  success,
+  setSuccess,
+}) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -36,6 +43,10 @@ export default function Login({ setToken, error, setError }) {
       }
     }
   };
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   function handleRegistration() {
     navigate("/registration");
@@ -70,6 +81,9 @@ export default function Login({ setToken, error, setError }) {
       </button>
       <div>
         <ErrorMessage hasError={error} />
+      </div>
+      <div>
+        <SuccessMessage success={success} />
       </div>
     </div>
   );

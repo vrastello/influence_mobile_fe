@@ -1,9 +1,18 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import createUser from "../Services/createUser";
+import ErrorMessage from "../App/ErrorMessage";
 
-export default function Registration() {
+function parseError(error) {
+  const errorList = Object.entries(error).map(([key, value]) => {
+    const errorMessage = value.join(", ");
+    return `${key.replace("_", " ")}: ${errorMessage}`;
+  });
+  return errorList;
+}
+
+export default function Registration({ error, setError, success, setSuccess }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -15,20 +24,37 @@ export default function Registration() {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createUser({
-      user: {
-        username,
-        password,
-        email,
-        first_name,
-        last_name,
-        birthdate,
-        gender,
-      },
-    });
-    console.log(res);
-    navigate("/login");
+    try {
+      const res = await createUser({
+        user: {
+          username,
+          password,
+          email,
+          first_name,
+          last_name,
+          birthdate,
+          gender,
+        },
+      });
+      console.log(res);
+      if (!res.ok) {
+        const data = await res.json();
+        console.log(parseError(data.error));
+        setError(parseError(data.error));
+        console.log(res.status, res.statusText);
+        throw new Error(`${res.status}`);
+      } else {
+        setSuccess("Successfully registered, please log in");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   function goToLogin() {
     navigate("/login");
@@ -75,7 +101,7 @@ export default function Registration() {
               value="Male"
               onChange={(e) => setGender(e.target.value)}
             />
-            <label for="male">Male</label>
+            <label className="male">Male</label>
           </div>
           <input
             type="radio"
@@ -84,7 +110,7 @@ export default function Registration() {
             value="Female"
             onChange={(e) => setGender(e.target.value)}
           />
-          <label for="female">Female</label>
+          <label className="female">Female</label>
         </label>
         <div>
           <button type="submit">Submit</button>
@@ -98,6 +124,9 @@ export default function Registration() {
       >
         Log in
       </button>
+      <div>
+        <ErrorMessage hasError={error} />
+      </div>
     </div>
   );
 }

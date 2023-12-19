@@ -12,6 +12,7 @@ import OfferView from "../Admin/OfferView";
 export default function App() {
   const { token, setToken } = useToken();
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   return (
     <div>
@@ -21,12 +22,26 @@ export default function App() {
           <Route
             path="/login"
             element={
-              <Login setToken={setToken} error={error} setError={setError} />
+              <Login
+                setToken={setToken}
+                error={error}
+                setError={setError}
+                success={success}
+                setSuccess={setSuccess}
+              />
             }
           />
           <Route
             path="/registration"
-            element={<Registration error={error} setError={setError} />}
+            element={
+              <Registration
+                setToken={setToken}
+                error={error}
+                setError={setError}
+                success={success}
+                setSuccess={setSuccess}
+              />
+            }
           />
           <Route element={<AuthLayout token={token} />}>
             <Route
