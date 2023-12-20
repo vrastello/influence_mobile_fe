@@ -6,7 +6,7 @@
    * This will run on localhost port 3000
    * I pointed front end at local host port 3002, so please use that for server set up
 
-## ---- Notes below are same as front end repo ------
+## ---- Notes below are same as back end repo ------
 
 ### Bonus Features (beyond MVP requirements):
 * Used React for front end
