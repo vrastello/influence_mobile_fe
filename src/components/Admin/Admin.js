@@ -14,6 +14,7 @@ function Admin({ token, error, setError }) {
   const tokenString = token.token;
   const roleString = token.role;
   let navigate = useNavigate();
+  const timeOut = true;
 
   // We could have just pulled all data from api at home route then we wouldn't
   // need to make another api call here, but we want to authenticate this request
@@ -74,11 +75,19 @@ function Admin({ token, error, setError }) {
 
   return (
     <div>
+      <div className="row">
+        <div className="col-2">
+          <img src="/logo-small.png" alt="Influence Mobile Logo" />
+        </div>
+        <div className="col-10">
+          <h2>Influence Mobile</h2>
+        </div>
+      </div>
       <div>
         <NavBar role={roleString} />
       </div>
       <div>
-        <ErrorMessage hasError={error} />
+        <ErrorMessage hasError={error} timeOut={timeOut} />
       </div>
       <div>
         <MaterialReactTable

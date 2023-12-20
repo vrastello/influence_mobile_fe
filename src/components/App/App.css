@@ -27,3 +27,31 @@ body {
   background-color: #dff2bf;
   background-image: url("https://i.imgur.com/Q9BGTuy.png");
 }
+
+.center {
+  text-align: center;
+}
+
+#navbar ul {
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+  text-align: right;
+  background-color: #252429;
+}
+
+#navbar ul li {
+  display: inline;
+}
+
+#navbar ul li a {
+  text-decoration: none;
+  padding: 0.2em 1em;
+  color: #fff;
+  background-color: #000;
+}
+
+#navbar ul li a:hover {
+  color: #000;
+  background-color: #fff;
+}

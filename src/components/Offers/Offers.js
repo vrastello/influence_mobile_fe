@@ -6,6 +6,8 @@ import Offer from "./Offer";
 import updateOffer from "../Services/updateOffer";
 import SuccessMessage from "../App/SuccessMessage";
 import NavBar from "../App/NavBar";
+import { chunk } from "lodash";
+import "./Offers.css";
 
 export default function Offers({
   token,
@@ -19,6 +21,8 @@ export default function Offers({
   const tokenString = token.token;
   const roleString = token.role;
   const [offerToEdit, setOfferToEdit] = useState(0);
+  const timeOut = true;
+  const successTimeOut = true;
 
   useEffect(() => {
     setError(false);
@@ -65,42 +69,56 @@ export default function Offers({
     }
   }
 
+  const sections = chunk(offers, 4);
+
   return (
     <div>
-      <div>
-        <NavBar role={roleString} />
+      <div className="row">
+        <div className="col-2">
+          <img src="/logo-small.png" alt="Influence Mobile Logo" />
+        </div>
+        <div className="col-10">
+          <h2>Influence Mobile</h2>
+        </div>
       </div>
-      <h2>Offers</h2>
+      <div className="wrapper"></div>
       <div>
-        <ErrorMessage hasError={error} />
+        <ErrorMessage hasError={error} timeOut={timeOut} />
       </div>
       <div>
-        <SuccessMessage success={success} />
+        <SuccessMessage success={success} timeOut={successTimeOut} />
       </div>
       <div className="wrapper">
-        <h5>
-          <strong>User Details</strong>
-        </h5>
+        <h3>Play to Earn Offers</h3>
         <p>
           username: {user?.username}
           <br />
           age: {user?.age}
+          <br />
+          Offer Count: {offers?.length}
         </p>
       </div>
       <div>
-        {offers.map((offer) => {
-          return (
-            <div className="card" key={offer.id}>
-              <Offer
-                user={user}
-                offer={offer}
-                offerToEdit={offerToEdit}
-                submitEdit={submitEdit}
-                toggleEditForm={() => toggleEditForm(offer.id)}
-              />
-            </div>
-          );
-        })}
+        <NavBar role={roleString} />
+      </div>
+      <div>
+        {sections.map((section, index) => (
+          <div className="row" key={index}>
+            {section.map((offer) => (
+              <div className="column">
+                <div className="card" key={offer.id}>
+                  <Offer
+                    user={user}
+                    offer={offer}
+                    offerToEdit={offerToEdit}
+                    submitEdit={submitEdit}
+                    toggleEditForm={() => toggleEditForm(offer.id)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

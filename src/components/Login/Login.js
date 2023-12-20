@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import ErrorMessage from "../App/ErrorMessage";
 import loginUser from "../Services/loginUser";
 
-import "./Login.css";
+import "./Login.scss";
 import SuccessMessage from "../App/SuccessMessage";
 
 export default function Login({ setToken, error, setError, success }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const timeOut = false;
+  const successTimeOut = true;
 
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -44,37 +46,48 @@ export default function Login({ setToken, error, setError, success }) {
   }
 
   return (
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
+    <div className="align">
+      <div className="grid aling__item">
+        <div className="register">
+          <img src="/logo.png" alt="Influence Mobile Logo" />
+          <h2>Influence Mobile</h2>
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="form__field">
+              <input
+                type="text"
+                placeholder="Username"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+            <div className="form__field">
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="form__field">
+              <input type="submit" value="Sign In" />
+            </div>
+          </form>
+          <div>
+            <ErrorMessage hasError={error} timeOut={timeOut} />
+          </div>
+          <div>
+            <SuccessMessage success={success} timeOut={successTimeOut} />
+          </div>
+          <p>
+            Don't have an account?{" "}
+            <button
+              className="link-button"
+              onClick={() => {
+                handleRegistration();
+              }}
+            >
+              Register here
+            </button>
+          </p>
         </div>
-      </form>
-      <button
-        type="button"
-        onClick={() => {
-          handleRegistration();
-        }}
-      >
-        Registration
-      </button>
-      <div>
-        <ErrorMessage hasError={error} />
-      </div>
-      <div>
-        <SuccessMessage success={success} />
       </div>
     </div>
   );

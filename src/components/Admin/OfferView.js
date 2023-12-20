@@ -20,6 +20,7 @@ function OfferView({ token, error, setError }) {
   const roleString = token.role;
   const rowParams = useParams();
   const navigate = useNavigate();
+  const timeOut = true;
 
   // have to make call to validate token, user can change session storage
   // so token presence is not as secure as BE validation
@@ -69,9 +70,12 @@ function OfferView({ token, error, setError }) {
   return (
     <div>
       <div>
-        <NavBar role={roleString} />
-      </div>
-      <div>
+        <div className="row">
+          <div className="col-2">
+            <img src="/logo-small.png" alt="Influence Mobile Logo" />
+          </div>
+        </div>
+        <br />
         <h2>{offer?.title}</h2>
         <div>
           <p>
@@ -86,7 +90,10 @@ function OfferView({ token, error, setError }) {
         </div>
       </div>
       <div>
-        <ErrorMessage hasError={error} />
+        <ErrorMessage hasError={error} timeOut={timeOut} />
+      </div>
+      <div>
+        <NavBar role={roleString} />
       </div>
       <div>
         <MaterialReactTable

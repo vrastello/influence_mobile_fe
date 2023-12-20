@@ -17,7 +17,6 @@ export default function App() {
 
   return (
     <div>
-      <h1>Influence Mobile</h1>
       <Router>
         <Routes>
           <Route
