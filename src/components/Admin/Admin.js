@@ -47,12 +47,6 @@ function Admin({ token, error, setError }) {
         Cell: ({ cell }) => <span>{cell.getValue()}</span>,
       },
       {
-        accessorKey: "gender",
-        header: "Gender",
-        muiTableHeadCellProps: { sx: { color: "green" } },
-        Cell: ({ cell }) => <span>{cell.getValue()}</span>,
-      },
-      {
         accessorKey: "description",
         header: "Description",
         muiTableHeadCellProps: { sx: { color: "green" } },

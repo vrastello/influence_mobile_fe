@@ -46,6 +46,12 @@ function OfferView({ token, error, setError }) {
   const columns = useMemo(
     () => [
       {
+        accessorKey: "gender",
+        header: "Gender",
+        muiTableHeadCellProps: { sx: { color: "green" } },
+        Cell: ({ cell }) => <span>{cell.getValue()}</span>,
+      },
+      {
         accessorKey: "start_age",
         header: "Start Age",
         muiTableHeadCellProps: { sx: { color: "green" } },
@@ -80,9 +86,6 @@ function OfferView({ token, error, setError }) {
         <div>
           <p>
             <strong>Description:</strong> {offer?.description}
-          </p>
-          <p>
-            <strong>Gender:</strong> {offer?.gender}
           </p>
           <p>
             <strong>Payout</strong> {offer?.payout}

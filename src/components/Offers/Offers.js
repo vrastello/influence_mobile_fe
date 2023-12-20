@@ -95,6 +95,8 @@ export default function Offers({
           <br />
           age: {user?.age}
           <br />
+          gender: {user?.gender}
+          <br />
           Offer Count: {offers?.length}
         </p>
       </div>
