@@ -3,6 +3,8 @@
 ## How to set up:
    * simply clone and run `npm start` in root directory
    * used React version 18.2.0
+   * This will run on localhost port 3000
+   * I pointed front end at local host port 3002, so please use that for server set up
 
 ### Bonus Features (beyond MVP requirements):
 * Used React for front end
