@@ -6,11 +6,13 @@ import { Box, IconButton } from "@mui/material";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import { MaterialReactTable } from "material-react-table";
 import ErrorMessage from "../App/ErrorMessage";
+import NavBar from "../App/NavBar";
 
 function Admin({ token, error, setError }) {
   const [offers, setOffers] = useState([]);
   const [rowId, setRowID] = useState("");
   const tokenString = token.token;
+  const roleString = token.role;
   let navigate = useNavigate();
 
   // We could have just pulled all data from api at home route then we wouldn't
@@ -72,6 +74,9 @@ function Admin({ token, error, setError }) {
 
   return (
     <div>
+      <div>
+        <NavBar role={roleString} />
+      </div>
       <div>
         <ErrorMessage hasError={error} />
       </div>

@@ -4,6 +4,7 @@ import showOffer from "../Services/showOffer";
 import { MaterialReactTable } from "material-react-table";
 import ErrorMessage from "../App/ErrorMessage";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../App/NavBar";
 
 /*
 another api call not needed for data, since we already have that in state
@@ -16,6 +17,7 @@ function OfferView({ token, error, setError }) {
   const [offerDetails, setOfferDetails] = useState([]);
   const [offer, setOffer] = useState([]);
   const tokenString = token.token;
+  const roleString = token.role;
   const rowParams = useParams();
   const navigate = useNavigate();
 
@@ -66,6 +68,9 @@ function OfferView({ token, error, setError }) {
 
   return (
     <div>
+      <div>
+        <NavBar role={roleString} />
+      </div>
       <div>
         <h2>{offer?.title}</h2>
         <div>

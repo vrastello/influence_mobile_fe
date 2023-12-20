@@ -72,7 +72,7 @@ export default function Offer({
     <div className="card-body">
       <h5 className="card-title">{offer.title}</h5>
       <h6 className="card-subtitle mb-2 text-muted">{offer.genre}</h6>
-      <p className="card-text">{isEditing ? editBody : cardBody}</p>
+      <div className="card-text">{isEditing ? editBody : cardBody}</div>
       <div className="btn-group">
         <div className="row">
           <div className="col-6-sm">{editButton}</div>

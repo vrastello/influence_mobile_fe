@@ -103,7 +103,7 @@ export default function Registration({ error, setError, setSuccess }) {
             type="radio"
             id="female"
             name="gender"
-            value="Female"
+            value="female"
             onChange={(e) => setGender(e.target.value)}
           />
           <label className="radio-inline">Female</label>

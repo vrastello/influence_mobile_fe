@@ -8,6 +8,7 @@ import Login from "../Login/Login";
 import Admin from "../Admin/Admin";
 import useToken from "./UseToken";
 import OfferView from "../Admin/OfferView";
+import PageNotFound from "./PageNotFound";
 
 export default function App() {
   const { token, setToken } = useToken();
@@ -41,6 +42,7 @@ export default function App() {
               />
             }
           />
+          <Route path="*" element={<PageNotFound />} />
           <Route element={<AuthLayout token={token} />}>
             <Route
               path="/"

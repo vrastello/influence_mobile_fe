@@ -1,53 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import getOffers from "../Services/getOffers";
 import ErrorMessage from "../App/ErrorMessage";
 import "../App/App.css";
 import Offer from "./Offer";
 import updateOffer from "../Services/updateOffer";
 import SuccessMessage from "../App/SuccessMessage";
-
-function AdminPortal({ role }) {
-  let navigate = useNavigate();
-
-  function handleAdmin() {
-    navigate("/admin");
-  }
-  if (role === "admin") {
-    return (
-      <button
-        type="button"
-        onClick={() => {
-          handleAdmin();
-        }}
-      >
-        Admin Portal
-      </button>
-    );
-  } else {
-    return <div></div>;
-  }
-}
-
-function Logout() {
-  let navigate = useNavigate();
-
-  function handleLogout() {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={() => {
-        handleLogout();
-      }}
-    >
-      Logout
-    </button>
-  );
-}
+import NavBar from "../App/NavBar";
 
 export default function Offers({
   token,
@@ -109,13 +67,10 @@ export default function Offers({
 
   return (
     <div>
+      <div>
+        <NavBar role={roleString} />
+      </div>
       <h2>Offers</h2>
-      <div>
-        <AdminPortal role={roleString} />
-      </div>
-      <div>
-        <Logout />
-      </div>
       <div>
         <ErrorMessage hasError={error} />
       </div>
