@@ -38,9 +38,9 @@
   * offer detail view, admin can click on individual offer listing graph icon and see total play hours per age and gender groups
   * Admin has access to interactive table, with sorting search, filters, density toggle and full screen mode
     * I didn't reinvent wheel but implemented technology from npm package for the table.
-*Added some architecture for future extensibility
+* Added some architecture for future extensibility
   * thought process was for overall idea, not just short term project
   * wanted to simulate real project
-  * please see project notes     
+  * please see project notes on decisions made for architecture
   
 
