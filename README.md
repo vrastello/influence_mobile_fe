@@ -42,5 +42,9 @@
   * thought process was for overall idea, not just short term project
   * wanted to simulate real project
   * please see project notes on decisions made for architecture
+* Used/modified Css and Sass templates found online to make it look nice
+  * I used these templates rather than doing my own custom css and sass
+  * just being upfront that the css and scss files are not something I did on my own.
+  * everything else is mine...I can do css and scss if needed but for speed/small scale project chose to use template.
   
 
