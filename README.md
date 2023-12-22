@@ -15,6 +15,7 @@
   * protected routing, redirects to login if no token
   * if token bad user will recieve error message
   * if user enters invalid url path, default page not found activated
+  * Use chrome developer tools to see the token stored in session storage (application -> storage -> sessionStorage)
 * User roles
   * admin and regular users
   * buttons dynamic on front end depending on role
